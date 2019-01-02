@@ -1,0 +1,58 @@
+{
+	"configuration": {
+		"properties": {
+			"property": {
+				"name": "FileLocation",
+				"value": "/data/springboot-mybatis-annotation/logs/"
+			}
+		},
+		"appenders": {
+			"appender": [
+				{
+					"name": "CONSOLE",
+					"type": "Console",
+					"PatternLayout": {
+						"pattern": "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+					}
+				},
+				{
+					"name": "FILE",
+					"type": "RollingFile",
+					"fileName": "${FileLocation}app.log",
+					"filePattern": "${FileLocation}app.%d{yyyy-MM-dd}.%i.log",
+					"PatternLayout": {
+						"pattern": "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+					},
+					"Policies": {
+						"TimeBasedTriggeringPolicy": {
+							"interval": 1,
+							"modulate": true
+						},
+						"SizeBasedTriggeringPolicy": {
+							"size": "10 MB"
+						}
+					}
+				}
+			]
+		},
+		"loggers": {
+			"asyncLogger": [
+				{
+					"name": "com.example",
+					"level": "INFO"
+				}
+			],
+			"asyncRoot": {
+				"level": "INFO",
+				"appender-ref": [
+					{
+						"ref": "CONSOLE"
+					},
+					{
+						"ref": "FILE"
+					}
+				]
+			}
+		}
+	}
+}

@@ -2,6 +2,9 @@ package com.example.controller;
 
 import com.example.dao.PersonMapper;
 import com.example.domain.PersonDO;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +20,7 @@ import java.util.List;
 @RestController
 public class PersonController {
 
+	private static Logger logger = LoggerFactory.getLogger(PersonController.class);
     @Autowired
     private PersonMapper personMapper;
 
@@ -26,6 +30,7 @@ public class PersonController {
         personDO.setName("张三");
         personDO.setAge(18);
         personMapper.insert(personDO);
+        logger.info("------------save");
         return personDO.getId();
     }
 
@@ -35,6 +40,7 @@ public class PersonController {
         personDO.setId(2);
         personDO.setName("旺旺");
         personDO.setAge(12);
+        logger.info("------------update");
         return personMapper.update(personDO);
     }
 
@@ -45,11 +51,13 @@ public class PersonController {
 
     @RequestMapping("/selectById")
     public PersonDO selectById() {
+    	logger.info("------------selectById");
         return personMapper.selectById(2L);
     }
 
     @RequestMapping("/selectAll")
     public List<PersonDO> selectAll() {
+    	logger.info("------------selectAll");
         return personMapper.selectAll();
     }
 
